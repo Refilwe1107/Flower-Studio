@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The FlowerStudio22</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <section id="header">
+        <a href="#"><img src="Logo/logo2.png.jpg" class="logo" alt="" width="150px"></a>
+
+        <div>
+            <ul id="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li id="lg-bag"><a class="active" href="cart.html"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                <a href="#" id="close"><i class="far fa-times"></i></a>
+            </ul>
+        </div>
+
+        <div id="mobile">
+            <a href="cart.html"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </section>
+
+    <section id="page-header" class="about-header">
+        <h2>#Talk2US</h2>
+        <p>Get in touch with us</p>
+    </section>
+
+    <section id="cart" class="section-p1">
+        <table width="100%">
+            <thead>
+                <tr>
+                    <td>Remove</td>
+                    <td>Image</td>
+                    <td>Product</td>
+                    <td>Price</td>
+                    <td>Quantity</td>
+                    <td>Subtotal</td>
+                </tr>
+            </thead>
+            <tbody id="cart-body">
+            </tbody>
+        </table>
+    </section>
+
+    <section id="cart-add" class="section-p1">
+        <div id="coupon">
+            <h3>Apply Coupon</h3>
+            <div>
+                <input type="text" placeholder="Enter Coupon Code">
+                <button class="normal">Apply</button>
+            </div>
+        </div>
+
+        <div id="subtotal">
+            <h3>Cart Totals</h3>
+            <table>
+                <tr>
+                    <td>Cart Subtotal</td>
+                    <td id="cart-subtotal">R0</td>
+                </tr>
+                <tr>
+                    <td>Shipping</td>
+                    <td>Free</td>
+                </tr>
+                <tr>
+                    <td><strong>Total</strong></td>
+                    <td><strong id="total">R0</strong></td>
+                </tr>
+            </table>
+            <button class="normal" id="checkout-btn">Proceed to Checkout</button>
+            <button class="normal" id="clear-cart-btn">Clear Cart</button>
+        </div>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="Logo/logo2.png.jpg" alt="" width="150px">
+            <h4>Contact</h4>
+            <p><strong>Address:</strong></p>
+            <p><strong>Phone:</strong></p>
+            <p><strong>Hours:</strong> 09:00 - 17:00, Mon - Sat</p>
+            <div class="follow">
+                <h4>Follow us</h4>
+                <div class="icon">
+                    <i class="fab fa-instagram"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About Us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact Us</a>
+        </div>
+
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="#">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My order</a>
+            <a href="#">Help</a>
+        </div>
+        <div class="col">
+            <p>Secured Payment Gateways</p>
+            <img src="Secured Payment Gateways/Securedpayment.jpeg" alt="" height="60px">
+        </div>
+    </footer>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    
+        function updateCart() {
+            const cartBody = document.getElementById("cart-body");
+            const cartSubtotal = document.getElementById("cart-subtotal");
+            const total = document.getElementById("total");
+    
+            cartBody.innerHTML = "";
+    
+            let subtotal = 0;
+    
+            cart.forEach((item, index) => {
+                const row = document.createElement("tr");
+    
+                const removeColumn = `<td><button class="remove-btn" data-index="${index}">Remove</button></td>`;
+                const imageColumn = `<td><img src="${item.image}" alt="${item.name}" style="width:80px;height:auto;"></td>`;
+                const productColumn = `<td>${item.name}</td>`;
+                const priceColumn = `<td>R${item.price}</td>`;
+                const quantityColumn = `
+                    <td>
+                        <input 
+                            type="number" 
+                            class="quantity-input" 
+                            data-index="${index}" 
+                            value="${item.quantity}" 
+                            min="1"
+                            style="width: 50px; text-align: center;"
+                        >
+                    </td>`;
+    
+                const itemSubtotal = item.price * item.quantity;
+                subtotal += itemSubtotal;
+                const subtotalColumn = `<td>R${itemSubtotal.toFixed(2)}</td>`;
+    
+                row.innerHTML = removeColumn + imageColumn + productColumn + priceColumn + quantityColumn + subtotalColumn;
+                cartBody.appendChild(row);
+            });
+    
+            cartSubtotal.textContent = `R${subtotal.toFixed(2)}`;
+            total.textContent = `R${subtotal.toFixed(2)}`;
+    
+            const removeButtons = document.querySelectorAll(".remove-btn");
+            removeButtons.forEach(button => {
+                button.addEventListener("click", function () {
+                    const index = this.getAttribute("data-index");
+                    cart.splice(index, 1);
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    updateCart();
+                });
+            });
+    
+            const quantityInputs = document.querySelectorAll(".quantity-input");
+            quantityInputs.forEach(input => {
+                input.addEventListener("change", function () {
+                    const index = this.getAttribute("data-index");
+                    const newQuantity = parseInt(this.value);
+    
+                    if (newQuantity > 0) {
+                        cart[index].quantity = newQuantity;
+                        localStorage.setItem("cart", JSON.stringify(cart));
+                        updateCart();
+                    } else {
+                        alert("Quantity must be at least 1.");
+                        this.value = cart[index].quantity;
+                    }
+                });
+            });
+        }
+    
+        document.getElementById("checkout-btn").addEventListener("click", () => {
+            const totalAmount = document.getElementById("total").textContent;
+            localStorage.setItem("checkoutCart", JSON.stringify(cart));
+            localStorage.setItem("checkoutTotal", totalAmount);
+
+            localStorage.removeItem("cart");
+
+            window.location.href = "confirmation.html";
+        });
+    
+        document.getElementById("clear-cart-btn").addEventListener("click", () => {
+            cart = [];
+            localStorage.removeItem("cart");
+            updateCart();
+            alert("Cart has been cleared!");
+        });
+    
+        updateCart();
+    </script>
+</body>
+
+</html>

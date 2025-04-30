@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The FlowerStudio22</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <section id="header">
+        <a href="index.html"><img src="Logo/logo2.png.jpg" class="logo" alt="Logo" width="150px"></a>
+
+        <div>
+            <ul id="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a class="active" href="shop.html">Shop</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li id="lg-bag"><a href="cart.html"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                <a href="#" id="close"><i class="far fa-times"></i></a>
+            </ul>
+        </div>
+        <div id="mobile">
+            <a href="cart.html"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </section>
+
+    <section id="prodetails" class="section-p1">
+        <div class="single-pro-image">
+            <img src="Products/Roses In Every Shade of Beauty/60 stems.jpeg" width="100%" id="MainImg" class="MainImg" alt="Main Product Image">
+
+            <div class="small-img-group">
+                <div class="small-img-col">
+                    <img src="Shop/Sproducts/60 Stems/60 stems.jpeg" width="100%" class="small-img" alt="Default">
+                </div>
+                <div class="small-img-col">
+                    <img src="Shop/Sproducts/60 Stems/60 stems pink.jpeg" width="100%" class="small-img" alt="Pink">
+                </div>
+                <div class="small-img-col">
+                    <img src="Shop/Sproducts/60 Stems/60 stems white.jpeg" width="100%" class="small-img" alt="White">
+                </div>
+            </div>
+        </div>
+
+        <div class="single-pro-details">
+            <h6>Home/Flowers</h6>
+            <h4>60 Stems</h4>
+            <h2>R1050</h2>
+            <select>
+                <option>Select Color</option>
+                <option>Pink</option>
+                <option>Red</option>
+                <option>White</option>
+            </select>
+            <input type="number" value="1">
+            <button class="add-to-cart" data-id="3">Add To Cart</button>
+            <h4>Product Details</h4>
+            <span>
+                Experience the ultimate expression of love and admiration with our 60 Stem Roses Bouquet. Each rose is expertly selected and handpicked to display vibrant colors and velvety petals, creating a stunning visual spectacle. This magnificent bouquet is perfect for commemorating significant milestones, celebrating grand occasions, or making an unforgettable impression. With an abundance of 60 roses, this arrangement conveys a message of deep affection and unwavering commitment, enveloped in elegance and charm.
+            </span>
+        </div>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="Logo/logo2.png.jpg" alt="Logo" width="150px">
+            <h4>Contact</h4>
+            <p><strong>Address:</strong></p>
+            <p><strong>Phone:</strong></p>
+            <p><strong>Hours:</strong> 09:00 - 17:00, Mon - Sat</p>
+            <div class="follow">
+                <h4>Follow us</h4>
+                <div class="icon">
+                    <i class="fab fa-instagram"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About Us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact Us</a>
+        </div>
+
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="#">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My Order</a>
+            <a href="#">Help</a>
+        </div>
+        <div class="col">
+            <p>Secured Payment Gateways</p>
+            <img src="Secured Payment Gateways/Securedpayment.jpeg" alt="Secured Payment" height="60px">
+        </div>
+    </footer>
+
+    <script>
+        const colorSelect = document.querySelector('.single-pro-details select');
+        const mainImg = document.getElementById('MainImg');
+        const colorImages = {
+            Pink: "Shop/Sproducts/60 Stems/60 stems pink.jpeg",
+            Red: "Shop/Sproducts/60 Stems/60 stems red.jpeg",
+            White: "Shop/Sproducts/60 Stems/60 stems white.jpeg"
+        };
+    
+        colorSelect.addEventListener('change', function () {
+            const selectedColor = this.value;
+            if (colorImages[selectedColor]) {
+                mainImg.src = colorImages[selectedColor];
+            } else {
+                mainImg.src = "Products/Roses In Every Shade of Beauty/40 stems.jpeg";
+            }
+        });
+    
+        document.querySelector('.add-to-cart').addEventListener('click', function () {
+            const productId = this.getAttribute('data-id');
+            const productDetails = this.closest('.single-pro-details');
+            const productName = productDetails.querySelector('h4').innerText;
+            const productPrice = productDetails.querySelector('h2').innerText.replace('R', '');
+            const productQuantity = productDetails.querySelector('input[type="number"]').value;
+            const productColor = colorSelect.value;
+            const productImage = mainImg.src;
+    
+            if (productColor === "Select Color") {
+                alert("Please select a color before adding to the cart.");
+                return;
+            }
+    
+            const product = {
+                id: productId,
+                name: productName,
+                price: parseFloat(productPrice),
+                quantity: parseInt(productQuantity),
+                color: productColor,
+                image: productImage
+            };
+    
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+            const existingProductIndex = cart.findIndex(item => item.id === productId && item.color === productColor);
+            if (existingProductIndex > -1) {
+                cart[existingProductIndex].quantity += product.quantity;
+            } else {
+                cart.push(product);
+            }
+    
+            localStorage.setItem('cart', JSON.stringify(cart));
+    
+            alert("Product added to cart successfully!");
+        });
+    
+        const smallImages = document.getElementsByClassName("small-img");
+        Array.from(smallImages).forEach((img) => {
+            img.addEventListener('click', function () {
+                mainImg.src = img.src;
+            });
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>

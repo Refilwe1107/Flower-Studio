@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby's Breath - The FlowerStudio22</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <section id="header">
+        <a href="#"><img src="Logo/logo2.png.jpg" class="logo" alt="Logo" width="150px"></a>
+
+        <div>
+            <ul id="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a class="active" href="shop.html">Shop</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li id="lg-bag"><a href="cart.html"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                <a href="#" id="close"><i class="far fa-times"></i></a>
+            </ul>
+        </div>
+        <div id="mobile">
+            <a href="cart.html"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </section>
+
+    <section id="prodetails" class="section-p1">
+        <div class="single-pro-image">
+            <img src="Products/Add-on Flower Per Bunch/Baby Breath.jpeg" width="100%" id="MainImg" class="MainImg" alt="Baby's Breath">
+
+            <div class="small-img-group">
+                <div class="small-img-col">
+                    <img src="Shop/Sproducts/Baby's Breath/white.jpeg" width="100%" class="small-img" alt="Thumbnail of White Baby's Breath">
+                </div>
+                <div class="small-img-col">
+                    <img src="Shop/Sproducts/Baby's Breath/pink.jpeg" width="100%" class="small-img" alt="Thumbnail of Pink Baby's Breath">
+                </div>
+                <div class="small-img-col">
+                    <img src="Shop/Sproducts/Baby's Breath/blue.jpeg" width="100%" class="small-img" alt="Thumbnail of Blue Baby's Breath">
+                </div>
+            </div>
+        </div>
+
+        <div class="single-pro-details">
+            <h6>Home / Flowers</h6>
+            <h4>Baby's Breath</h4>
+            <h2>R250</h2>
+            <select id="color-select">
+                <option>Select Color</option>
+                <option>White</option>
+                <option>Pink</option>
+                <option>Blue</option>
+            </select>
+            <input type="number" id="quantity" value="1" min="1">
+            <button class="normal" id="addToCartBtn">Add To Cart</button>
+            <h4>Product Details</h4>
+            <span>
+                Enhance the beauty and elegance of your flower arrangement with the delicate addition of Baby's Breath. 
+                These tiny, cloud-like white blooms provide a soft, airy touch that complements any bouquet. 
+                Baby's Breath is known for its light, feathery appearance and is often used to create a sense of fullness 
+                and texture within the arrangement. Perfect for adding an extra layer of charm and sophistication, this 
+                versatile filler flower effortlessly enhances the overall aesthetic, making your bouquet even more captivating.
+            </span>
+        </div>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="Logo/logo2.png.jpg" alt="Logo" width="150px">
+            <h4>Contact</h4>
+            <p><strong>Address:</strong></p>
+            <p><strong>Phone:</strong></p>
+            <p><strong>Hours:</strong> 09:00 - 17:00, Mon - Sat</p>
+            <div class="follow">
+                <h4>Follow us</h4>
+                <div class="icon">
+                    <i class="fab fa-instagram"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About Us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact Us</a>
+        </div>
+
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="#">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My Order</a>
+            <a href="#">Help</a>
+        </div>
+
+        <div class="col">
+            <p>Secured Payment Gateways</p>
+            <img src="Secured Payment Gateways/Securedpayment.jpeg" alt="Secured Payment Icon" height="60px">
+        </div>
+    </footer>
+
+    <script>
+        var MainImg = document.getElementById("MainImg");
+        var smallimg = document.getElementsByClassName("small-img");
+
+        for (let i = 0; i < smallimg.length; i++) {
+            smallimg[i].onclick = function () {
+                MainImg.src = smallimg[i].src;
+            }
+        }
+
+        document.getElementById('addToCartBtn').addEventListener('click', function() {
+            var productName = document.querySelector('.single-pro-details h4').textContent;
+            var productPrice = parseFloat(document.querySelector('.single-pro-details h2').textContent.replace('R', ''));
+            var productColor = document.querySelector('#color-select').value;
+            var productQuantity = parseInt(document.querySelector('#quantity').value);
+            var productImage = MainImg.src;
+            var productId = "7";
+
+            if (productColor === "Select Color") {
+                alert("Please select a color.");
+                return;
+            }
+
+            if (isNaN(productQuantity) || productQuantity <= 0) {
+                alert("Please enter a valid quantity.");
+                return;
+            }
+
+            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            var existingProduct = cart.find(item => item.id === productId && item.color === productColor);
+
+            if (existingProduct) {
+                existingProduct.quantity += productQuantity;
+            } else {
+                var product = {
+                    id: productId,
+                    name: productName,
+                    price: productPrice,
+                    color: productColor,
+                    quantity: productQuantity,
+                    image: productImage
+                };
+
+                cart.push(product);
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            alert(`${productName} (${productColor}) has been added to your cart!`);
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color:palevioletred;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        img {
+            width: 80px;
+            height: auto;
+        }
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: palevioletred;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: palevioletred;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Thank You for Your Order!</h1>
+        <p>Your order has been successfully placed. Here are the details:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody id="order-details">
+            </tbody>
+        </table>
+
+        <p><strong>Total Amount:</strong> <span id="total-amount"></span></p>
+        <a href="index.html" class="button">Return to Home</a>
+    </div>
+
+    <script>
+        const cart = JSON.parse(localStorage.getItem("checkoutCart")) || [];
+        const totalAmount = localStorage.getItem("checkoutTotal");
+
+        const orderDetails = document.getElementById("order-details");
+        cart.forEach(item => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td><img src="${item.image}" alt="${item.name}"></td>
+                <td>${item.name}</td>
+                <td>${item.quantity}</td>
+                <td>R${item.price}</td>
+                <td>R${(item.price * item.quantity).toFixed(2)}</td>
+            `;
+            orderDetails.appendChild(row);
+        });
+
+        document.getElementById("total-amount").textContent = `${totalAmount}`;
+
+        localStorage.removeItem("checkoutCart");
+        localStorage.removeItem("checkoutTotal");
+    </script>
+</body>
+</html>

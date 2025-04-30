@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The FlowerStudio22 - Payment</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <section id="header">
+        <a href="index.html"><img src="Logo/logo2.png.jpg" class="logo" alt="" width="150px"></a>
+
+        <div>
+            <ul id="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li id="lg-bag"><a href="cart.html"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                <a href="#" id="close"><i class="far fa-times"></i></a>
+            </ul>
+        </div>
+        <div id="mobile">
+            <a href="cart.html"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </section>
+
+    <section id="page-header" class="about-header">
+        <h2>#SecurePayment</h2>
+        <p>Complete your purchase securely</p>
+    </section>
+
+    <section id="payment-details" class="section-p1">
+        <div class="payment-summary">
+            <h3>Order Summary</h3>
+            <table width="100%">
+                <thead>
+                    <tr>
+                        <td>Image</td>
+                        <td>Product</td>
+                        <td>Color</td>
+                        <td>Quantity</td>
+                        <td>Price</td>
+                        <td>Subtotal</td>
+                    </tr>
+                </thead>
+                <tbody id="order-summary">
+                   
+                </tbody>
+            </table>
+            <h4>Total: <span id="order-total">R0</span></h4>
+        </div>
+
+        <div class="payment-form">
+            <form action="confirmation.html" method="POST" id="payment-form">
+                <h3>Billing Details</h3>
+                <input type="text" name="name" placeholder="Full Name" required>
+                <input type="email" name="email" placeholder="Email Address" required>
+                <input type="text" name="address" placeholder="Address" required>
+                <input type="text" name="city" placeholder="City" required>
+                <input type="text" name="state" placeholder="State/Province" required>
+                <input type="text" name="zip" placeholder="ZIP/Postal Code" required>
+                <input type="text" name="country" placeholder="Country" required>
+
+                <h3>Payment Information</h3>
+                <input type="text" name="card-name" placeholder="Name on Card" required>
+                <input type="text" name="card-number" placeholder="Card Number" maxlength="16" required>
+                <div class="card-details">
+                    <input type="text" name="expiry" placeholder="MM/YY" maxlength="5" required>
+                    <input type="text" name="cvv" placeholder="CVV" maxlength="3" required>
+                </div>
+
+                <button type="submit" class="normal">Pay Now</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="Logo/logo2.png.jpg" alt="" width="150px">
+            <h4>Contact</h4>
+            <p><strong>Address:</strong> 123, Flower Street, Lagos, Nigeria</p>
+            <p><strong>Phone:</strong> 083 913 3030</p>
+            <p><strong>Hours:</strong> 09:00 - 17:00, Mon - Sat</p>
+            <div class="follow">
+                <h4>Follow us</h4>
+                <div class="icon">
+                    <i class="fab fa-instagram"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About Us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact Us</a>
+        </div>
+
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="#">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My Order</a>
+            <a href="#">Help</a>
+        </div>
+        <div class="col">
+            <p>Secured Payment Gateways</p>
+            <img src="Secured Payment Gateways/Securedpayment.jpeg" alt="" height="60px">
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const orderSummary = document.getElementById('order-summary');
+            const orderTotal = document.getElementById('order-total');
+            let total = 0;
+
+       
+            if (cart.length === 0) {
+                orderSummary.innerHTML = '<tr><td colspan="6" style="text-align: center;">Your cart is empty.</td></tr>';
+                return;
+            }
+
+            
+            cart.forEach(item => {
+                const itemSubtotal = item.price * item.quantity;
+                total += itemSubtotal;
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><img src="${item.image}" alt="${item.name}" width="50"></td>
+                    <td>${item.name}</td>
+                    <td>${item.color}</td>
+                    <td>${item.quantity}</td>
+                    <td>R${item.price}</td>
+                    <td>R${itemSubtotal}</td>
+                `;
+                orderSummary.appendChild(row);
+            });
+
+         
+            orderTotal.innerText = `R${total}`;
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>The FlowerStudio22</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <section id="header">
+<a href="#"><img src="Logo/logo2.png.jpg" class="logo" alt="" width="150px"></a>
+
+<div>
+    <ul id="navbar">
+        <li><a  href="index.html">Home</a></li>
+        <li><a class="active" href="shop.html">Shop</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li id="lg-bag"><a href="cart.html"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+        <a href="#" id="close"><i class="far fa-times"></i></a>
+    </ul>
+</div>
+<div id="mobile">
+<a href="cart.html"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+<i id="bar" class="fas fa-outdent"></i>
+</div>
+    </section>
+
+<section id="prodetails" class="section-p1">
+<div class="single-pro-image">
+    <img src="Shop/Page-header/Background Image2.webp" width="100%" id="MainImg" class="MainImg" alt="">
+
+        
+
+    </div>
+
+</div>
+
+<div class="single-pro-details">
+ <h6>Delivery</h6>
+ <h4>DELIVERY</h4>
+ <h2>delivery</h2>
+ 
+ <span>
+   
+    <p>Delivery is available in the following areas:</p>
+    <p>1. Midrand</p>
+    <p>2. Centurion</p>
+    <p>3. Pretoria</p>
+    <p>4. Sandton</p>
+    <p>5. Hartebeespoort Dam</p>
+    <p>Our delivery fees range from R150 to R450, depending on THE LOCATION</p>
+    
+ </span>
+</div>
+</section>
+
+    <footer class="section-p1">
+    <div class="col">
+        <img class="logo" src="Logo/logo2.png.jpg" alt="" width="150px">
+        <h4>Contact</h4>
+        <p><strong>Adress:</strong></p>
+         <p><strong>Phone:</strong></p>
+         <p><strong>Hours:</strong> 09:00 - 17:00, Mon - Sat </p>
+        <div class="follow">
+            <h4>Follow us</h4>
+            <div class="icon">
+                <i class="fab fa-instagram"></i>
+            </div>
+        </div>
+        </div>
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About Us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact Us</a>
+        </div>
+
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="#">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My order</a>
+            <a href="#">Help</a>
+        </div>
+        <div class="col">
+        <p>Secured Payment Gateways</p>
+        <img src="Secured Payment Gateways/Securedpayment.jpeg" alt="" height="60px">
+    </div>
+    </footer>
+
+    <script>
+        var MainImg = document.getElementById("MainImg");
+        var smallimg = document.getElementsByClassName("small-img")
+
+        smallimg[0].onclick = function(){
+            MainImg.src = smallimg[0].src;
+        }
+        smallimg[1].onclick = function(){
+            MainImg.src = smallimg[1].src;
+        }
+        smallimg[2].onclick = function(){
+            MainImg.src = smallimg[2].src;
+        }
+        smallimg[3].onclick = function(){
+            MainImg.src = smallimg[3].src;
+        }
+    </script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
